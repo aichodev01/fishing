@@ -1,0 +1,4 @@
+# Local env (secrets / machine-specific)
+.env
+**/.env
+!.env.example

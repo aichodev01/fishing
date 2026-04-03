@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fishing.backend.mapper.FishingProductMapper">
+
+  <resultMap id="FishingProductMap" type="com.fishing.backend.domain.FishingProduct">
+    <id property="id" column="id" />
+    <result property="spotId" column="spot_id" />
+    <result property="name" column="name" />
+    <result property="description" column="description" />
+    <result property="basePrice" column="base_price" />
+    <result property="maxPeople" column="max_people" />
+    <result property="active" column="active" />
+    <result property="createdAt" column="created_at" />
+    <result property="updatedAt" column="updated_at" />
+  </resultMap>
+
+  <select id="findAllActive" resultMap="FishingProductMap">
+    SELECT
+      id, spot_id, name, description, base_price, max_people, active, created_at, updated_at
+    FROM fishing_product
+    WHERE active = TRUE
+    ORDER BY id DESC
+  </select>
+
+  <select id="findAll" resultMap="FishingProductMap">
+    SELECT
+      id, spot_id, name, description, base_price, max_people, active, created_at, updated_at
+    FROM fishing_product
+    ORDER BY id DESC
+  </select>
+
+  <select id="findById" parameterType="long" resultMap="FishingProductMap">
+    SELECT
+      id, spot_id, name, description, base_price, max_people, active, created_at, updated_at
+    FROM fishing_product
+    WHERE id = #{id}
+  </select>
+
+  <insert id="insert" parameterType="com.fishing.backend.domain.FishingProduct" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO fishing_product (
+      spot_id,
+      name,
+      description,
+      base_price,
+      max_people,
+      active
+    ) VALUES (
+      #{spotId},
+      #{name},
+      #{description},
+      #{basePrice},
+      #{maxPeople},
+      #{active}
+    )
+  </insert>
+
+  <update id="update" parameterType="com.fishing.backend.domain.FishingProduct">
+    UPDATE fishing_product
+    SET
+      spot_id = #{spotId},
+      name = #{name},
+      description = #{description},
+      base_price = #{basePrice},
+      max_people = #{maxPeople},
+      active = #{active}
+    WHERE id = #{id}
+  </update>
+
+  <update id="setActive">
+    UPDATE fishing_product
+    SET active = #{active}
+    WHERE id = #{id}
+  </update>
+
+</mapper>
+
