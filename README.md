@@ -22,7 +22,7 @@ docker compose up -d
 ### 2) 백엔드
 
 ```bash
-cd backend/backend
+cd backend
 ./gradlew.bat bootRun
 ```
 
